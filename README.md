@@ -141,5 +141,255 @@ Não se esqueça de implementar o método createdArchetypeInstances nas classes 
 
 6 - Crie a interface Fighter
 
+Um universo tão rico e cheio de diferentes seres, com diferentes alinhamentos, convicções e personalidades pode não ser um lugar sempre amigável. Por isso, seus habitantes têm que ser capazes de se defender ou de inventar artimanhas para se livrarem de brigas, confusões e armadilhas. Sendo assim, podemos dizer que todos os seres de T&D são, em essência, lutadores.
+
+Para fixar bem esse conceito, preparamos para você a missão especial de criar a interface Fighter. Mas não se preocupe! Não deixaremos você dar mais nem um passo sem as informações necessárias para tirar isso de letra! Observe as orientações abaixo:
+
+Crie uma interface chamada Fighter;
+O arquivo Fighter.ts deve ser criado no diretório src/Fighter/;
+A interface deverá possuir os atributos:
+lifePoints, do tipo number;
+strength, do tipo number;
+defense, do tipo number;
+energy, do tipo Energy. ✨✨
+A interface deverá possuir os métodos:
+attack(), que recebe um enemy do tipo Fighter como parâmetro e não possui retorno (void);
+special(), que recebe um enemy do tipo Fighter como parâmetro e não possui retorno (void); ✨✨
+levelUp(), que não recebe parâmetro e não possui retorno (void);
+receiveDamage(), que recebe um attackPoints do tipo number como parâmetro e retorne um number.
+✨ Dica de mestre: ✨
+
+O atributo energy e o método special() devem ser opcionais;
+Pesquise sobre: Optional Properties ou Optional parameters em interfaces;
+Agora você pode descomentar os trechos de código dos arquivos do diretório Battle; (Battle.ts e index.ts).
+
+⚠️ Atenção:
+
+Para que os testes funcionem corretamente, a interface Fighter deve ser exportada de forma padrão (com export default);
+Um arquivo chamado index.ts deve ser criado dentro do diretório src/Fighter/;
+A interface Fighter deve ser importada dentro deste arquivo e exportada também de forma padrão, como feito em requisitos anteriores.
+
+7 - Crie a classe Character
+
+Maravilha! Agora já temos tanto as nossas raças quanto os nossos arquétipos e interfaces definidos. Mas antes de sair por aí entrando em tavernas e calabouços, temos outra quest: criar uma personagem!
+
+Cada personagem será composta tanto por uma raça quanto por um arquétipo. Essa classe reunirá um conjunto de características que terão o poder de fazer desse ser o mais único possível. Além disso, personagens devem possuir tudo o que se espera de alguém que luta.
+
+As dicas para completar essa quest são:
+
+O arquivo deve ser criado na raiz do diretório src/ e se chamar Character.ts;
+A classe deve implementar a interface Fighter;
+A classe Character deve ter os atributos privados: race, archetype, maxLifePoints, lifePoints, strength, defense, dexterity e energy, todos inicializados em seu construtor;
+O atributo race deve ser do tipo Race;
+O atributo archetype deve ser do tipo Archetype;
+O atributo maxLifePoints deve ser do tipo number;
+O atributo lifePoints deve ser do tipo number;
+O atributo strength deve ser do tipo number;
+O atributo defense deve ser do tipo number;
+O atributo dexterity deve ser do tipo number;
+O atributo energy deve ser do tipo Energy;
+O atributo name deve ser recebido como parâmetro no construtor e deve ser usado para dar nome à sua personagem.
+Devem ser inicializados no construtor:
+dexterity com um valor aleatório de no mínimo 1 e no máximo 10 pontos. ✨✨;
+race por padrão com uma instância de Elf (A destreza de Elf deve ser a mesma definida em dexterity);
+archetype por padrão com uma instância de Mage;
+maxLifePoints por padrão com metade do maxLifePoints da raça instanciada;
+lifePoints por padrão com o mesmo valor de maxLifePoints da classe;
+strength, defense com valores aleatórios de no mínimo 1 e no máximo 10 pontos; ✨✨
+energy por padrão:
+type_ com o mesmo valor do arquétipo instanciado;
+amount com um valor aleatório de no mínimo 1 e no máximo 10 pontos. ✨✨
+Os atributos da classe Character podem ser lidos mas não podem ser alterados:
+race deve retornar o tipo Race;
+archetype deve retornar o tipo Archetype
+lifePoints deve retornar o tipo number;
+strength deve retornar o tipo number;
+defense deve retornar o tipo number;
+dexterity deve retornar o tipo number;
+energy deve retornar o tipo Energy.
+✨ Lembre-se que energy é um objeto, portanto se você retornar ele diretamente o javascript permite que as propriedades desse objetos sejam alteradas, mesmo energy sendo privado.
+A classe Character também deve implementar os métodos estendidos da interface Fighter;
+receiveDamage 😵 este método recebe por parâmetro um valor (attackPoints) e as regras são:
+Para calcular o dano recebido (damage), o valor da defesa (defense) do personagem deve ser subtraído do valor do ataque recebido (attackPoints);
+Se o dano calculado (damage) for maior que 0, você perde esse valor em pontos de vida (lifePoints). Se o dano calculado (damage) for igual ou menor a zero, você deve perder apenas 1 ponto de vida (lifePoints);
+Ao receber o ataque e perder pontos de vida (lifePoints), e se sua vida chegar a 0 ou menos, você deve fixá-la com o valor -1;
+Ao final sempre retorne o valor atualizado de seus pontos de vida.
+attack 🪄 este método recebe por parâmetro uma pessoa inimiga (enemy) e as regras são:
+Toda vez que acontecer um ataque, o inimigo recebido por parâmetro recebe um dano;
+Este dano deve ser equivalente a força (strength) de quem ataca.
+levelUp 🆙 este método não recebe parâmetro e as regras são:
+Sempre que este método for chamado os atributos maxLifePoints, strength, dexterity e defense terão um incremento de no mínimo 1 e no máximo 10 pontos; ✨✨
+Assim como os atributos anteriores o montante de energia (amount dentro de energy) deve ser alterado também, ele deve ficar cheio, valendo exatamente 10;
+O atributo maxLifePoints do Character nunca poderá ser maior que o maxLifePoints de sua raça (race). Se, ao incrementar o valor de maxLifePoints do Character esse valor ficar maior do que o maxLifePoints da raça, ele deve receber o valor igual ao do da raça. Exemplo: se o maxLifePointsda raça é 100, e o do Character é 95, e ao fazer o levelUp ele ficaria 8 pontos maior, isso daria 103, que é maior do que o da raça, portanto você deveria deixar em 100.
+Ao final, o atributo lifePoints também deve ser atualizado, recebendo o novo valor de maxLifePoints (de acordo com as regras anteriores).
+special ⚡ este método não recebe parâmetro e as regras é você quem decide:
+Aqui você pode expandir sua mente e realizar a lógica que achar mais interessante para um ataque especial, use tudo que aprendeu no mundo de T&D! 🐲
+Esta parte do requisito não esta sendo avalida é apenas para você se divertir aprendendo. 💚
+✨ Dica de mestre: ✨
+
+Para gerar valores aleatórios, use a função getRandomInt fornecida no arquivo src/utils.ts.
+
+⚠️ Atenção:
+
+Para que os testes funcionem corretamente, a classe Character deve ser exportada de forma padrão ( com export default).
+
+8 - Crie a interface SimpleFighter
+
+Uau, o nosso universo de T&D está ficando fabuloso! No entanto, nem todo mundo que luta possui capacidades avançadas, como ter uma defesa ou realizar ataques especiais. Dito isto, vamos para mais uma quest: criar a interface lutador simples
+
+As dicas para completar essa quest são:
+
+Crie uma interface chamada SimpleFighter;
+O arquivo SimpleFighter.ts deve ser criado no diretório src/Fighter/.
+A interface deverá possuir os atributos:
+lifePoints, do tipo number;
+strength, do tipo number.
+A interface deverá possuir os métodos:
+attack() que recebe um enemy do tipo SimpleFighter como parâmetro e não possui retorno (void);
+receiveDamage() que recebe um attackPoints do tipo number como parâmetro e retorne um number;
+Aqui é um bom momento para treinarmos algumas skills deste bloco e aplicar uma refatoração, além disso você acaba adiantando uma parte do próximo requisito ✨. Utilize a segregação de interfaces, volte e observe nossa interface Fighter.
+
+⚠️ Atenção:
+
+Para que os testes funcionem corretamente, a interface SimpleFighter deve ser exportada de forma padrão (com export default);
+A interface SimpleFighter deve ser importada dentro de src/Fighter/index.ts e deve ser exportada de forma explícita (export { SimpleFighter }), como feito em requisitos anteriores.
+
+9 - Crie a classe Monster
+
+Se existem seres que implementam a interface Fighter, deve existir seres que implementam a interface SimpleFighter também, não é ? Estes são os Monsters, criaturas bestiais que apenas atacam outros seres. Então, sua próxima quest é: criar a classe Monster!
+
+O que você deve saber para seguir em frente:
+
+O arquivo deve ser criado na raiz do diretório src/ e chamar Monster.ts;
+A classe deve implementar a interface SimpleFighter;
+A classe Monster deve ter os atributos privados lifePoints e strength, ambos inicializados em seu construtor:
+Os atributos lifePoints e strength devem ser do tipo number;
+Devem ser inicializados no construtor:
+lifePoints por padrão com o valor de 85;
+strength por padrão com o valor de 63.
+Os atributos da classe Monster podem ser lidos mas não podem ser alterados:
+lifePoints e strength devem retornar o tipo number.
+A classe Monster também deve implementar os métodos estendidos da interface SimpleFighter:
+receiveDamage 😵 este método recebe por parâmetro um valor (attackPoints) e as regras são:
+Este valor deve ser decrescido de seus pontos de vida (lifePoints), assim causando um dano (damage);
+Ao receber o ataque, sua vida nunca poderá chegar a 0, se isto acontecer seus lifePoints devem valer -1;
+Ao final o método deve retornar o valor atualizado dos pontos de vida.
+attack 🪄 este método recebe por parâmetro uma pessoa inimiga (enemy) e as regras são:
+Toda vez que acontecer um ataque, o inimigo recebido por parâmetro recebe um dano;
+Este dano deve ser calculado a partir de attackPoints equivalentes à força (strength) de quem ataca.
+
+✨ Dica de mestre: ✨
+
+Aqui vamos precisar que os métodos de Fighter que recebiam um inimigo do tipo Fighter agora possam receber um SimpleFighter. Assim um Fighter pode atacar um Monster 😄.
+⚠️ Atenção:
+
+Para que os testes funcionem corretamente, a classe Monster deve ser exportada de forma padrão ( com export default).
+
+10 - Crie a classe PVP
+
+A ideia do mundo de T&D ser completamente pacífico provavelmente já deve ter desaparecido da sua mente depois das suas últimas quests. Nesse mundo, existem lutas, muitas delas inclusive épicas, denominadas Battles (batalhas). Sua representação geral/abstrata já foi fornecida anteriormente, entretanto, existem tipos específicos de batalhas. Uma dessas batalhas chamamos de PVP, batalhas entre personagens (ou player versus player), que só podem acontecer entre personagens lutadores (Fighters). 🧙‍♀️ ⚔️ 🧙‍♂️
+
+Sua quest agora é justamente criar a classe PVP, então, você que lute ! 🗡️😂 Brincadeira! Estamos aqui para te ajudar e por isso trazemos abaixo algumas dicas preciosas para garantir a sua vitória neste requisito:
+
+O arquivo deve ser criado no diretório src/Battle/ e se chamar PVP.ts;
+A classe PVP deve herdar de Battle;
+A classe Battle já esta criada, dê uma espiada nela; 🧐
+Na criação de uma instância de PVP é esperado que em seu construtor sejam recebidos dois Characters lutadores, ambos inicializados lá;
+Não se esqueça de fazer a sobrescrita (override) do(s) método(s) necessário(s). ✨✨
+✨ Dica de mestre: ✨
+
+Use um dos players para ser parâmetro do super na inicialização e use o método fight do super para dar o veredito da batalha, ou seja, se super.fight() retornar 1 o player quer foi usado como parâmetro do super na inicialização ganhou, e se retornar -1 a vitória foi do player que não foi o parâmetro do super;
+
+Aqui podemos devemos sobrescrever o método fight;
+
+No método fight sobrescrito, implemente uma lógica de ataque entre personagens lutadores da classe;
+As personagens devem batalhar até uma das duas ser derrotada, em outras palavras, a batalha só deverá terminar, quando alguma personagem ter seus pontos de vida (lifePoints) igual a -1;
+Se necessário, refatore o que já foi feito com as interfaces Fighter e SimpleFighter para se adequarem melhor à sua nova implementação de batalha;
+
+Não esqueça de descomentar os trechos de código dos arquivos do diretório Battle como citado nas "Dica de mestre" do requisito 6 - Crie a interface Fighter.
 
 
+⚠️ Atenção:
+
+Para que os testes funcionem corretamente, a classe PVP deve ser exportada de forma padrão (com export default);
+Novamente, dentro de src/Battle/index.ts, a classe (PVP) deve ser importada, porém esta deve ser exportada de forma normal (export { PVP }), como feito em requisitos anteriores.
+
+REQUISITOS BÔNUS
+
+11 - Criar a classe PVE
+
+Nem todas as batalhas são entre personagens lutadoras (Character), afinal, há perigos à solta que espreitam ao escurecer, em densas florestas ou em calabouços profundos.
+
+Monstros representam alguns destes perigos, assim, temos as batalhas do tipo PVE(player versus environment), em que personagens (sempre do tipo Fighter) podem lutar contra um ou mais monstros assustadores (SimpleFighter). Parece interessante, não é? Tornar isso possível é a sua próxima quest! 🧙‍♀️ ⚔️ 👾👹👻
+
+Antes de prosseguir para essa nova batalha, leia atentamente as dicas abaixo !!! Só assim obteremos sucesso e prosperidade:
+
+O arquivo deve ser criado no diretório src/Battle/ e se chamar PVE.ts;
+Lembre-se a classe Battle já esta criada;
+Na criação de uma instância de PVE.ts é esperado que em seu construtor seja recebido uma pessoa personagem lutadora (Character Fighter) e um array com pelo menos um monstro (Monster), ambos inicializados no construtor;
+Como estamos falando de uma batalha player versus environment, este array de monstros também aceita instâncias de pessoas personagens lutadoras sendo elas simples ou não; (Fighter, SimpleFighter)
+Não se esqueça de fazer a sobrescrita (override) do(s) método(s) necessário(s);
+Como na "Dica de mestre" do requisito anterior (PVP), não esqueça de implementar uma lógica de luta para este requisito também;
+Lembre-se, aqui a luta é de uma personagem contra apenas um oponete ou uma legião deles. Logo, para a batalha ser finalizada, a personagem principal, ou seus oponentes, deverão ter perdido os seus respectivos pontos de vida (lifePoints).
+
+⚠️ Atenção:
+
+Para que os testes funcionem corretamente, a classe PVE deve ser exportada de forma padrão (com export default);
+Novamente dentro de src/Battle/index.ts a classe (PVE) deve ser importada, porém desta vez de forma normal (export { PVP }), como feito em requisitos anteriores.
+
+12 - Crie a classe Dragon
+
+Seria muito estranho se esse mundo se chamasse Trybers and Dragons e não existissem Dragons, não é mesmo? Estes seres magníficos são representados como monstros aqui, mas com a característica especial de possuírem elevados valores de pontos de vida.
+
+Nesta quest, você deve criar a classe Dragon, cuidando para garantir que:
+
+O arquivo deve ser criado na raiz de src/ e se chamar Dragon.ts;
+A classe Dragon deve herdar de Monster;
+Como citado acima, um Dragão tem elevados valores de pontos de vida, então em seu construtor defina o valor de _lifePoints para algo como 999; 🐲🐲
+🐲 Dica de mestre: 🐲
+
+Aqui é interessante voltar no conteúdo do course sobre Herança e Interfaces e relembrar um pouco de Atributos protegidos;
+
+⚠️ Atenção:
+
+Para que os testes funcionem corretamente, a classe Dragon deve ser exportada de forma padrão ( com export default).
+
+13 - Crie objetos no arquivo index
+
+Você já modelou todo o mundo de T&D, maravilha!
+
+Agora repare que, por mais que a gente saiba o que são Monster, Character, Dragon, PVE, etc, nenhum desses foi visto em ação. Então a sua última quest para completar essa aventura é dar vida às suas personagens e criar algumas instâncias das classes criadas anteriormente. 🪄
+
+Algumas dicas se fazem necessárias para completar sua última missão no mundo de T&D. Elas são:
+
+O arquivo deve ser criado na raiz de src/ e se chamar index.ts;
+⚠️ Preste bastante atenção nos nomes das variáveis/métodos e nas exportações pedidas deste último requisito; 😉.
+Crie 3 objetos do tipo Character:
+As variáveis devem-se chamar player1, player2 e player3;
+Execute algumas vezes o método levelUp do player1;
+Ao final do arquivo index.ts exporte player1, player2 e player3.
+Crie 2 objetos do tipo Monster:
+As variáveis devem se chamar monster1 e monster2;
+monster1 deve ser um Monster e monster2 deve ser um Dragon;
+Ao final do arquivo index.ts exporte monster1 e monster2.
+Crie um objeto do tipo PVP:
+A variável deve se chamar pvp;
+Como parâmetro do construtor passe player2 e player3;
+Ao final do arquivo index.ts exporte pvp.
+NÃO execute o método pvp.fight;
+Crie um objeto do tipo PVE:
+A variável deve se chamar pve;
+Como parâmetro do construtor passe player1 e um array contendo monster1 e monster2;
+Ao final do arquivo index.ts exporte pve.
+NÃO execute o método pve.fight;
+Crie uma função chamada runBattles:
+A função recebe por parâmetro um array de batalhas (battles) e este array é do tipo Battle; ✨✨
+Dentro da função, crie uma repetição percorrendo este array e chame o método fight;
+Ao final do arquivo index.ts exporte runBattles.
+✨ Última dica de mestre: ✨
+
+Lembre-se Battle não pode ser instanciada, pois é uma classe abstrata;
+
+⚠️ Atenção:
+
+Para que os testes funcionem corretamente, os objetos/métodos criados em src/index.ts devem ser exportados como explicado no requisito;
